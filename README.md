@@ -13,7 +13,7 @@ $ source venv/bin/activate
 $ export PYTHONPATH=$PWD
 ```
 
-Next we install the necessary requirements. This may take a fe minutes.
+Next we install the necessary requirements. This may take a few minutes.
 ```console
 (venv)$ pip install -r requirements.txt
 ```
