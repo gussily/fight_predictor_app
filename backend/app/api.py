@@ -66,6 +66,7 @@ class FightPredictor:
     
 
     def get_model(self, df_elo, df_fight_data, columns, divby):
+        
         df_elo = df_elo.copy()
         df_elo = df_elo[['fight_id', 'fighter', 'fighter_id'] + columns]
         df_fight_data = df_fight_data.copy()
@@ -116,6 +117,8 @@ class FightPredictor:
 
         fighter0_id, fighter1_id = (str(fighter0), str(fighter1))
 
+        self.fighter0_stats = {}
+        self.fighter1_stats = {}
         to_feed = []
 
         for stat_type in self.columns:
@@ -139,6 +142,9 @@ class FightPredictor:
 
                     elos.append(scistats.norm.cdf(z_val) * self.current_elo_values[fighter_id]['sig str'])
 
+            self.fighter0_stats[stat_type] = elos[0]
+            self.fighter1_stats[stat_type] = elos[1]
+            
             to_feed.append(1.0 / (1 + 1.0 * math.pow(10, (elos[1] - elos[0]) / self.divby)))
 
         result = self.model.predict([to_feed])
@@ -175,34 +181,30 @@ fp = FightPredictor(df_results, df_fight_data, fighter_dict, name_dict, current_
         stat_type_mean_sd_counts_load, current_strike_dstrbs_load, 
         ['win_loss', 'head', 'body', 'leg', 'distance', 'clinch', 'ground'], divby=400)
 
-# with open('jupyter_notebooks/fight_predictor.pkl', 'rb') as f:  
-#     fight_predictor = pickle.load(f)
 
-todos = [
-    {
-        "id": "1",
-        "item": "Read a book."
-    },
-    {
-        "id": "2",
-        "item": "Cycle around town."
-    },
-    {
-        17: "10",
-        "id": "5",
-        "item": "Conor McGregor"
-    }
-]
-
-@app.get("/todo", tags=["todos"])
-async def get_todos() -> dict:
-    return { "data": todos }
-
-@app.get("/items/")
-async def read_item(fighter: int):
-    return {'data': todos[fighter]}
 
 @app.get("/predict/")
-async def read_item(fighter0: str, fighter1: str):
-    return {'data': fp.predict_fight(fighter0, fighter1, name=True)}
-    # return {'data': 1}
+async def predict_fight(fighter0: str, fighter1: str):
+
+    has_fighter0 = fighter0 in name_dict.keys()
+    has_fighter1 = fighter1 in name_dict.keys()
+    
+    if not (has_fighter0 and has_fighter1):
+        return {'winner':'', 'fight_info_retrieved': False, 'error': '{}{}'\
+            .format(
+                f'{fighter0} not recognized\n' if not has_fighter0 else '',
+                f'{fighter1} not recognized\n' if not has_fighter1 else '')}
+
+    fighter0_id, fighter1_id = str(name_dict[fighter0]), str(name_dict[fighter1])
+    winner = fp.predict_fight(fighter0, fighter1, name=True)
+    return {
+        'error': '',
+        'fight_info_retrieved': True,
+        'fighter0': fighter0,
+        'fighter1': fighter1,
+        'winner': winner,
+        'fighter_stats': fp.columns,
+        'fighter0_stats': fp.fighter0_stats,
+        'fighter1_stats': fp.fighter1_stats
+        
+    }
