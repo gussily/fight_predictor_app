@@ -43,4 +43,3 @@ Now, to launch our app, simply run the following. This should open a webpage on 
 $ npm start
 ```
 
-##
