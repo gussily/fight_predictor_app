@@ -1,6 +1,10 @@
 # Fight Predictor App
 
-This is a web app used to predict the results of UFC fights.
+This is a web app used to predict the results of UFC fights. The front end uses the [React.js web framework](https://reactjs.org/), and the back end uses [Fast API web framework](https://fastapi.tiangolo.com/) along with the [Uvicorn server implementation](https://www.uvicorn.org/). 
+
+### Prediction Model
+
+The data used to train the model is found at http://www.ufcstats.com/statistics/events/completed and was scraped using the [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) python library. Different fighter skills were calculated using the ELO rating system, and rating values were fed as input to a Logistic Regression Classifier. This classifier achieved an accuracy of 59% when predicting the result of a fight, only having access to data available at the time of the fight. Note, there is still room for improvement, and it is not recommended to place bets on fights based on this predictor.
 
 ## Back end Setup
 
@@ -38,3 +42,4 @@ Now, to launch our app, simply run the following. This should open a webpage on 
 ```console
 $ npm start
 ```
+
