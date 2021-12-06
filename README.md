@@ -43,4 +43,9 @@ Now, to launch our app, simply run the following. This should open a webpage on 
 $ npm start
 ```
 
-##
+## Web page screenshots
+
+![plot1](./img/fp_1.png)
+
+![plot2](./img/fp_2.png)
+
