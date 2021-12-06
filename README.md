@@ -45,7 +45,7 @@ $ npm start
 
 ## Web page screenshots
 
-![plot1](./img/fp_1.png)
+![plot1](https://github.com/gussily/fight_predictor_app/blob/master/img/fp_1.PNG?raw=true)
 
-![plot2](./img/fp_2.png)
+![plot2](https://github.com/gussily/fight_predictor_app/blob/master/img/fp_2.PNG?raw=true)
 
