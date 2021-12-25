@@ -22,14 +22,14 @@ export default function BarCharts(props) {
             label: fighterData.fighter0,
             data: Object.values(fighterData.fighter0_stats),
             fill: true,
-            backgroundColor: "rgba(87, 115, 153)",
+            backgroundColor: "rgba(240, 93, 94)",
             borderColor: "rgba(75,192,192,1)"
           },
           {
             label: fighterData.fighter1,
             data: Object.values(fighterData.fighter1_stats),
             fill: true,
-            backgroundColor: "rgba(189, 213, 234)",
+            backgroundColor: "rgba(15, 113, 115)",
             borderColor: "#02AAB0"
           }
         ]

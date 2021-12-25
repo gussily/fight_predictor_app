@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {Button, TextField, Typography} from '@mui/material';
-
-export const FighterContext = React.createContext({
-    fighterData: '', fetchFighter: (fighterid) => {}
-})
+import {Container, Row, Col} from 'react-bootstrap'
+import Stack from '@mui/material/Stack';
+import Autocomplete from '@mui/material/Autocomplete';
 
 
 export default function FighterEntry(props) {
@@ -12,6 +11,7 @@ export default function FighterEntry(props) {
     const setFighterData = props.setFighterData
     const [fighter0id, setFighter0id] = useState("")
     const [fighter1id, setFighter1id] = useState("")
+    const [allFighters, setAllFighters] = useState()
 
     const handleSubmit = async (event) => {
 
@@ -22,40 +22,72 @@ export default function FighterEntry(props) {
         const result = await response.json()
         setFighterData(result)
     }
-    
 
-    useEffect(() => {
-        // fetchTodos()
-        // handleSubmit('0')
+    useEffect(async () => {
+        const response = await fetch('http://localhost:8000/all-fighters')
+        const result = await response.json()
+        setAllFighters(result['all_fighters'])
     }, [])
-
     
     return (
-    <>
-        
-        <TextField
-            label="Fighter 1"
-            onChange={(event) => {setFighter0id(event.target.value)}}
-        />
-        <TextField
-            label="Fighter 2"
-            onChange={(event) => {setFighter1id(event.target.value)}}
-        />
-        <div>
-            <Button 
-                variant="contained"
-                onClick={ handleSubmit}> 
-                predict fight 
-            </Button>
-        </div>
-        
-        
-        {/* {JSON.stringify(fighterData)} */}
-        <span>&nbsp;&nbsp;</span>
+    
+    <div >
+    <Container >
+        <Row className="userInputs">
+            <Col md={{ span: 3, offset: 3 }}>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <Autocomplete className="align"
+                        id="auto-1"
+                        sx={{ width: 250 }}
+                        freeSolo
+                        options={allFighters}
+                        onChange={(event, value) => {setFighter0id(value)}}
+                        renderInput={(params) => <TextField {...params} label="Fighter 1" 
+                            />}
+                    />
+                   
+                </div>
+            </Col>
+            <Col md={{ span: 3, offset: 0 }}>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <Autocomplete className="align"
+                        id="auto-1"
+                        sx={{ width: 250 }}
+                        freeSolo
+                        options={allFighters}
+                        onChange={(event, value) => {setFighter1id(value)}}
+                        renderInput={(params) => <TextField {...params} label="Fighter 2" 
+                            />}
+                    />
+                </div>
+            </Col>
+        </Row>
 
-        <Typography variant="h5" color='secondary'>
-            Predicted Winner: {fighterData['winner']}
-        </Typography>
-    </>
+        <Row>
+            <Col md={{ span: 2, offset: 5 }}>
+                <div style={{display: 'flex', justifyContent: 'center', paddingBottom: 20}}>
+                    <Button 
+                        variant="contained"
+                        onClick={ handleSubmit}
+                        size="large"> 
+                        predict fight 
+                    </Button>
+                </div>
+            </Col>
+            
+        </Row>
+
+        <Row >
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <Typography variant="h5" color='secondary'>
+                    Predicted Winner: {fighterData['winner']}
+                </Typography>
+            </div>
+        </Row>
+        
+    </Container>
+    </div>
+
+        
     )
 }

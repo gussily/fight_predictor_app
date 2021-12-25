@@ -1,0 +1,28 @@
+.BarCharts {
+    font-family: sans-serif;
+    text-align: center;
+    padding-right: 200px;
+    padding-left: 200px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    
+  }
+
+.userInputs {
+  padding-bottom: 20px;
+}
+
+.special {
+  padding-right: 200px;
+  padding-left: 200px;
+  padding-top: 100px;
+  
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-content: flex-start;        /* will work when items have wrapped */
+  align-items: flex-start;          /* adjusted; works when items in one line */
+  background-color: red;
+
+}
+  
