@@ -7,7 +7,7 @@ import {Typography} from '@mui/material';
 const Header = () => {
   return (
     <div>
-      <Typography variant="h2" color='textPrimary'>
+      <Typography variant="h4" color='textPrimary'>
         UFC Fight Predictor
       </Typography>
       <span>&nbsp;&nbsp;</span>
