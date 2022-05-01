@@ -1,2 +1,2 @@
 # Fight Predictor Back End
-The back end uses Fast API with Uvicorn. 
+The back end uses Fast API framework. 
