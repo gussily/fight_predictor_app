@@ -2,6 +2,8 @@ import React from "react";
 import ".././styles.css";
 
 import { Line, Bar } from "react-chartjs-2";
+import {Container, Row, Col} from 'react-bootstrap'
+
 
 // fixes an error
 import Chart from 'chart.js/auto'
@@ -39,8 +41,24 @@ export default function BarCharts(props) {
         return(<></>)
     }
     return (
-    <div className='BarCharts'>
-        <Bar data={data} />
-    </div>
+
+      <>
+      
+      <Container md={12} style={{paddingTop: '100px', paddingBottom: '30px'}}>
+
+        <Row />
+
+        <Row>
+          <Col md={{ span: 10, offset: 1 }}>
+        
+            {/* <div className='BarCharts'> */}
+                <Bar data={data} />
+            {/* </div> */}
+          </Col>
+        </Row>
+
+      </Container>
+
+      </>
     );
 }
