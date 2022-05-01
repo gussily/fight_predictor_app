@@ -41,7 +41,7 @@ export default function FighterEntry(props) {
                         sx={{ width: 250 }}
                         freeSolo
                         options={allFighters}
-                        onChange={(event, value) => {setFighter0id(value)}}
+                        onChange={(event, value) => {setFighter0id(value ? value : '')}}
                         renderInput={(params) => <TextField {...params} label="Fighter 1" 
                             />}
                     />
@@ -55,7 +55,7 @@ export default function FighterEntry(props) {
                         sx={{ width: 250 }}
                         freeSolo
                         options={allFighters}
-                        onChange={(event, value) => {setFighter1id(value)}}
+                        onChange={(event, value) => {setFighter1id(value ? value : '')}}
                         renderInput={(params) => <TextField {...params} label="Fighter 2" 
                             />}
                     />
